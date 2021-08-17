@@ -1,36 +1,48 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM, { render } from 'react-dom';
 import Vaccine from './components/Vaccine';
 
-const App = () => {
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      items: [
+        {
+          nameCompony:"Astrazeneca",
+          nameInter:"AZD1222",
+          produce:"England",
+          technology:"ไวรัส Adonovirus พาหะ",
+        },
+        {
+          nameCompony:"Phizer",
+          nameInter:"BNT162",
+          produce:"USA",
+          technology:"mRNA",
+        },
+      ]
+    };
+  }
+
+render() {
+
+  const itemsRendered = this.state.items.map((item) => {
+    return (
+      <Vaccine 
+        nameCompony = {item.nameCompony}
+        nameInter = {item.nameInter}
+        product = {item.product}
+        technology = {item.technology}
+      />
+    );
+  })
+  
+
   return (
-    <div className='vaccine'>
-      <Vaccine
-        nameCompony="Astrazeneca"
-        nameInter="AZD1222"
-        produce="England"
-        technology="ไวรัส Adonovirus พาหะ"
-      />
-      <Vaccine
-        nameCompony="Phizer"
-        nameInter="BNT162"
-        produce="USA"
-        technology="mRNA"
-      />
-      <Vaccine
-        nameCompony="moderna"
-        nameInter="mRNA-1273"
-        produce="USA"
-        technology="mRNA"
-      />
-      <Vaccine
-        nameCompony="sinovac"
-        nameInter="Coronavac"
-        produce="China"
-        technology="วัคซันเชื้อตาย"
-      />
+    <div className="vaccine">
+      {itemsRendered}
     </div>
   );
-};
+}
+}
 
 ReactDOM.render(<App />, document.querySelector('#root'));
