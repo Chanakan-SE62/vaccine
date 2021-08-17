@@ -1,5 +1,6 @@
+import { render } from '@testing-library/react';
 import React from 'react';
-import ReactDOM, { render } from 'react-dom';
+import ReactDOM from 'react-dom';
 import Vaccine from './components/Vaccine';
 
 class App extends React.Component {
@@ -8,41 +9,37 @@ class App extends React.Component {
     this.state = {
       items: [
         {
-          nameCompony:"Astrazeneca",
-          nameInter:"AZD1222",
-          produce:"England",
-          technology:"ไวรัส Adonovirus พาหะ",
+          nameCompony: 'Astrazeneca',
+          nameInter: 'AZD1222',
+          produce: 'England',
+          technology: 'ไวรัส Adonovirus พาหะ',
         },
         {
-          nameCompony:"Phizer",
-          nameInter:"BNT162",
-          produce:"USA",
-          technology:"mRNA",
+          nameCompony: 'Phizer',
+          nameInter: 'BNT162',
+          produce: 'USA',
+          technology: 'mRNA',
         },
-      ]
+      ],
     };
   }
 
-render() {
+  render() {
+    const itemsRendered = this.state.items.map((item) => {
+      return (
+        <Vaccine
+          nameCompony={item.nameCompony}
+          nameInter={item.nameInter}
+          produce={item.produce}
+          technology={item.technology}
+        />
+      );
+    });
 
-  const itemsRendered = this.state.items.map((item) => {
-    return (
-      <Vaccine 
-        nameCompony = {item.nameCompony}
-        nameInter = {item.nameInter}
-        product = {item.product}
-        technology = {item.technology}
-      />
-    );
-  })
-  
-
-  return (
-    <div className="vaccine">
+    return <div className="vaccine">
       {itemsRendered}
-    </div>
-  );
-}
+    </div>;
+  }
 }
 
 ReactDOM.render(<App />, document.querySelector('#root'));
